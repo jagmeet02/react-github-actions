@@ -14,7 +14,7 @@ jobs:
                 node-version: 24
 
             - name: Install Dependencies
-              run: npm run ci
+              run: npm ci
 
             - name: Run ESLint
               run: npm run lint
@@ -31,7 +31,7 @@ jobs:
                 node-version: 24
             
             - name: Install the dependecies
-              run: npm run ci
+              run: npm ci
               
             - name: Run the test cases
               run: npm run test
@@ -49,13 +49,13 @@ jobs:
                 node-version: 24
             
             - name: Install the dependecies
-              run: npm run ci
+              run: npm ci
               
             - name: Run the build
               run: npm run build
 
             - name: Create Artifacts
-              uses: actions/upload-artifacts@v4
+              uses: actions/upload-artifact@v4
               with: 
                 name: react-build
                 path: dist/
