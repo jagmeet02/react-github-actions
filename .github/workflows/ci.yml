@@ -10,6 +10,8 @@ jobs:
 
             - name: Stepup the nodeJS version
               uses: actions/setup-node@v4
+              with: 
+                node-version: 24
 
             - name: Install Dependencies
               run: npm run ci
@@ -25,6 +27,8 @@ jobs:
             
             - name: Setup the nodeJs Version
               uses: actions/setup-node@v4
+              with: 
+                node-version: 24
             
             - name: Install the dependecies
               run: npm run ci
@@ -41,6 +45,8 @@ jobs:
             
             - name: Setup the nodeJs Version
               uses: actions/setup-node@v4
+              with: 
+                node-version: 24
             
             - name: Install the dependecies
               run: npm run ci
