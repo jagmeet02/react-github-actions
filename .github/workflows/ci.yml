@@ -1,0 +1,56 @@
+name: CI Deployment
+on: push
+
+jobs:
+    lint-job:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Get the repository code
+              uses: actions/checkout@v4
+
+            - name: Stepup the nodeJS version
+              uses: actions/setup-node@v4
+
+            - name: Install Dependencies
+              run: npm run ci
+
+            - name: Run ESLint
+              run: npm run lint
+
+    testcases-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Repository code
+              uses: actions/checkout@v4
+            
+            - name: Setup the nodeJs Version
+              uses: actions/setup-node@v4
+            
+            - name: Install the dependecies
+              run: npm run ci
+              
+            - name: Run the test cases
+              run: npm run test
+
+    Build-job: 
+        needs: [lint-job, testcases-job]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Repository code
+              uses: actions/checkout@v4
+            
+            - name: Setup the nodeJs Version
+              uses: actions/setup-node@v4
+            
+            - name: Install the dependecies
+              run: npm run ci
+              
+            - name: Run the build
+              run: npm run build
+
+            - name: Create Artifacts
+              uses: actions/upload-artifacts@v4
+              with: 
+                name: react-build
+                path: dist/
+                retention-days: 7
