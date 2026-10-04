@@ -1,75 +1,75 @@
-name: CI Deployment
-on: push
+# name: CI Deployment
+# on: push
 
-jobs:
-    lint-job:
-        runs-on: ubuntu-latest
-        steps: 
-            - name: Get the repository code
-              uses: actions/checkout@v4
+# jobs:
+#     lint-job:
+#         runs-on: ubuntu-latest
+#         steps: 
+#             - name: Get the repository code
+#               uses: actions/checkout@v4
 
-            - name: Stepup the nodeJS version
-              uses: actions/setup-node@v4
-              with: 
-                node-version: 24
+#             - name: Stepup the nodeJS version
+#               uses: actions/setup-node@v4
+#               with: 
+#                 node-version: 24
 
-            - name: Install Dependencies
-              run: npm ci
+#             - name: Install Dependencies
+#               run: npm ci
 
-            - name: Run ESLint
-              run: npm run lint
+#             - name: Run ESLint
+#               run: npm run lint
 
-    testcases-job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Repository code
-              uses: actions/checkout@v4
+#     testcases-job:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Get Repository code
+#               uses: actions/checkout@v4
             
-            - name: Setup the nodeJs Version
-              uses: actions/setup-node@v4
-              with: 
-                node-version: 24
+#             - name: Setup the nodeJs Version
+#               uses: actions/setup-node@v4
+#               with: 
+#                 node-version: 24
             
-            - name: Install the dependecies
-              run: npm ci
+#             - name: Install the dependecies
+#               run: npm ci
               
-            - name: Run the test cases
-              run: npm run test
+#             - name: Run the test cases
+#               run: npm run test
 
-    Build-job: 
-        needs: [lint-job, testcases-job]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Repository code
-              uses: actions/checkout@v4
+#     Build-job: 
+#         needs: [lint-job, testcases-job]
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Get Repository code
+#               uses: actions/checkout@v4
             
-            - name: Setup the nodeJs Version
-              uses: actions/setup-node@v4
-              with: 
-                node-version: 24
+#             - name: Setup the nodeJs Version
+#               uses: actions/setup-node@v4
+#               with: 
+#                 node-version: 24
             
-            - name: Install the dependecies
-              run: npm ci
+#             - name: Install the dependecies
+#               run: npm ci
               
-            - name: Run the build
-              run: npm run build
+#             - name: Run the build
+#               run: npm run build
 
-            - name: Create Artifacts
-              uses: actions/upload-artifact@v4
-              with: 
-                name: react-build
-                path: dist/
-                retention-days: 7
+#             - name: Create Artifacts
+#               uses: actions/upload-artifact@v4
+#               with: 
+#                 name: react-build
+#                 path: dist/
+#                 retention-days: 7
 
-    Deploy-job:
-        needs: [lint-job,testcases-job,Build-job]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+#     Deploy-job:
+#         needs: [lint-job,testcases-job,Build-job]
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Checkout repository
+#               uses: actions/checkout@v4
 
-            - name: Install the Vercel Cli
-              run: npm install --global vercel
+#             - name: Install the Vercel Cli
+#               run: npm install --global vercel
 
-            - name: Deployment on vercel
-              run: vercel --prod --yes --token=${{secrets.VERCEL_TOKEN}}
+#             - name: Deployment on vercel
+#               run: vercel --prod --yes --token=${{secrets.VERCEL_TOKEN}}

@@ -1,37 +1,37 @@
-name: "first workflow"
-on: 
-  push:
-  pull_request:
-    branches:
-      - main
+# name: "first workflow"
+# on: 
+#   push:
+#   pull_request:
+#     branches:
+#       - main
 
-jobs: 
-  first-job:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Get Repository Code
-        uses: actions/checkout@v4
+# jobs: 
+#   first-job:
+#     runs-on: ubuntu-latest
+#     steps: 
+#       - name: Get Repository Code
+#         uses: actions/checkout@v4
 
-      - name : Setup the NodeJS Version
-        uses: actions/setup-node@v4
-        with: 
-          node-version: 24
+#       - name : Setup the NodeJS Version
+#         uses: actions/setup-node@v4
+#         with: 
+#           node-version: 24
 
-      - name: Install Dependency
-        run: npm ci
+#       - name: Install Dependency
+#         run: npm ci
 
-      - name: Run ESLint in the app
-        run: npm run lint
+#       - name: Run ESLint in the app
+#         run: npm run lint
 
-      - name: Run the test cases
-        run: npm run test
+#       - name: Run the test cases
+#         run: npm run test
 
-      - name: React Build
-        run: npm run build
+#       - name: React Build
+#         run: npm run build
 
-      - name: Create artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: react-build
-          path: dist/
-          retention-days: 7
+#       - name: Create artifacts
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: react-build
+#           path: dist/
+#           retention-days: 7

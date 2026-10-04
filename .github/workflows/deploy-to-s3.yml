@@ -1,0 +1,31 @@
+name: Deploy the app to s3
+on: push
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup the NodeJS Version
+              uses: actions/setup-node@v4
+              with:
+                node-version: 24
+                cache: npm
+
+            - name: Install the dependencies
+              run: npm ci
+
+            - name: Make Build
+              run: npm run build
+
+            - name: Configure AWS Configure
+              uses: aws-actions/configure-aws-credentials@v6
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: ap-south-1
+
+            - name: "Upload files on s3"
+              run: aws s3 sync ./dist s3://jagmeet30092026 --delete
